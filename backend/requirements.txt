@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+alembic
+pydantic
+pydantic-settings
+email-validator
+python-multipart
+bcrypt
+PyJWT
+stripe
+pandas
+numpy
+scikit-learn
+joblib
+# PostgreSQL driver (used by docker-compose / production)
+psycopg[binary]
