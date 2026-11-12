@@ -1,0 +1,49 @@
+# Local development / demo stack:  docker compose up --build
+# Then (optional demo data):        docker compose run --rm seed
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: churn
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-churn_dev_password}
+      POSTGRES_DB: churn_db
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U churn -d churn_db"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      DATABASE_URL: postgresql+psycopg://churn:${POSTGRES_PASSWORD:-churn_dev_password}@db:5432/churn_db
+      JWT_SECRET: ${JWT_SECRET:-dev-only-insecure-secret-change-me-0123456789}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
+    volumes: ["artifacts:/srv/ml/artifacts"]
+    depends_on: { db: { condition: service_healthy } }
+    ports: ["8000:8000"]
+
+  frontend:
+    build: { context: ./frontend }
+    depends_on: [backend]
+    ports: ["8080:80"]
+
+  # One-off job that loads clearly-labelled SYNTHETIC demo data, trains a model and scores customers.
+  seed:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    profiles: ["seed"]
+    working_dir: /srv
+    command: ["python", "scripts/seed_demo_data.py"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://churn:${POSTGRES_PASSWORD:-churn_dev_password}@db:5432/churn_db
+      MODEL_ARTIFACT_DIR: /srv/ml/artifacts
+    volumes: ["artifacts:/srv/ml/artifacts", "./scripts:/srv/scripts:ro"]
+    depends_on: { backend: { condition: service_started } }
+
+volumes:
+  pgdata:
+  artifacts:
