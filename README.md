@@ -7,7 +7,7 @@ recurring-revenue metrics, **explainable churn-risk estimates** (Logistic Regres
 > model learns, so demo metrics demonstrate the pipeline, not real-world predictive power. Churn probabilities are statistical
 > estimates, never certainties. The platform recommends actions for people to take; it never contacts customers, issues refunds,
 > or changes subscriptions on its own. See [docs/known-limitations.md](docs/known-limitations.md).
-
+[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/nikhil0074-dev/saas-churn-revenue-telemetry-predictor?utm_source=readme&utm_medium=badge)
 ## Screenshots (demo workspace, synthetic data)
 
 | | |
