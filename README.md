@@ -3,11 +3,7 @@
 A working, tested analytics platform that turns **Stripe billing events**, **product usage telemetry** and **CSV imports** into
 recurring-revenue metrics, **explainable churn-risk estimates** (Logistic Regression) and a **human-run retention workflow**.
 
-> **Honesty notes.** The bundled demo workspace uses **synthetic data** produced by a simulator that plants the relationships the
-> model learns, so demo metrics demonstrate the pipeline, not real-world predictive power. Churn probabilities are statistical
-> estimates, never certainties. The platform recommends actions for people to take; it never contacts customers, issues refunds,
-> or changes subscriptions on its own. See [docs/known-limitations.md](docs/known-limitations.md).
-[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/nikhil0074-dev/saas-churn-revenue-telemetry-predictor?utm_source=readme&utm_medium=badge)
+> **Honesty notes.** The bundled demo workspace uses **synthetic data** produced by a simulator that plants the relationships the model learns, so demo metrics demonstrate the pipeline, not real-world predictive power. Churn probabilities are statistical  estimates, never certainties. The platform recommends actions for people to take; it never contacts customers, issues refunds, or changes subscriptions on its own. 
 
 ![Architecture diagram](docs/diagram.png) **Architecture diagram**
 
