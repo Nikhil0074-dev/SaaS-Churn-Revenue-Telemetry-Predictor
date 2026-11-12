@@ -1,0 +1,24 @@
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/source-serif-4/500.css';
+@import '@fontsource/source-serif-4/600.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply bg-paper text-ink font-sans antialiased; }
+  body { @apply min-h-screen; }
+  :focus-visible { outline: 2px solid #0E5C54; outline-offset: 2px; }
+  table { @apply w-full border-collapse; }
+}
+@layer components {
+  .card { @apply bg-card border border-line rounded-lg shadow-card; }
+  .th { @apply text-left text-[11px] font-semibold uppercase tracking-wider text-muted px-3 py-2 border-b border-line bg-[#FAF9F5] whitespace-nowrap; }
+  .td { @apply px-3 py-2.5 border-b border-line/70 text-sm align-middle; }
+  .btn { @apply inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium border border-line bg-white text-ink hover:bg-[#F1EFE7] disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-pine border-pine text-white hover:bg-pine-dark; }
+  .input { @apply rounded-md border border-line bg-white px-3 py-1.5 text-sm placeholder:text-faint; }
+  .label { @apply text-xs font-medium text-muted; }
+}
